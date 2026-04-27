@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free ATS Feature Checklist — Talentpool</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green:      #00A483;
+      --green-light:#00BD97;
+      --green-dark: #00715A;
+      --green-bg:   #E4F4F1;
+      --navy:       #152542;
+      --navy-80:    rgba(21,37,66,0.08);
+      --grey:       #636363;
+      --grey-light: #E3E3E3;
+      --bg-grey:    #F4F6F5;
+      --blue:       #2665EB;
+      --white:      #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--white);
+      color: var(--navy);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ─────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid var(--grey-light);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px; height: 64px;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 6px;
+      font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 20px;
+      color: var(--navy); text-decoration: none; letter-spacing: -0.5px;
+    }
+    .nav-logo .dot { color: var(--green); }
+    .nav-cta {
+      background: var(--navy);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif; font-weight: 500; font-size: 14px;
+      padding: 10px 22px; border-radius: 8px; border: none; cursor: pointer;
+      text-decoration: none; transition: background 0.2s;
+    }
+    .nav-cta:hover { background: var(--green-dark); }
+
+    /* ── HERO ────────────────────────────────────────────── */
+    .hero {
+      padding-top: 64px;
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: stretch;
+    }
+
+    /* Left — copy */
+    .hero-left {
+      background: var(--navy);
+      padding: 80px 56px 80px 72px;
+      display: flex; flex-direction: column; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .hero-left::before {
+      content: '';
+      position: absolute; bottom: -80px; right: -80px;
+      width: 320px; height: 320px;
+      border-radius: 50%;
+      background: var(--green); opacity: 0.08;
+      pointer-events: none;
+    }
+    .hero-left::after {
+      content: '';
+      position: absolute; top: 40px; right: 60px;
+      width: 140px; height: 140px;
+      border-radius: 50%;
+      background: var(--green); opacity: 0.06;
+      pointer-events: none;
+    }
+
+    .badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(0,164,131,0.15);
+      border: 1px solid rgba(0,164,131,0.3);
+      color: var(--green-light);
+      font-size: 12px; font-weight: 600; letter-spacing: 0.6px;
+      padding: 6px 14px; border-radius: 100px;
+      margin-bottom: 28px; width: fit-content;
+    }
+    .badge::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--green-light); }
+
+    .hero-left h1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(36px, 3.5vw, 52px);
+      font-weight: 800; line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+    .hero-left h1 span { color: var(--green-light); }
+
+    .hero-left p {
+      font-size: 16px; line-height: 1.65;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 40px; max-width: 440px;
+    }
+
+    /* Feature list */
+    .feature-list { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 44px; }
+    .feature-list li {
+      display: flex; align-items: flex-start; gap: 12px;
+      font-size: 14px; color: rgba(255,255,255,0.82); line-height: 1.5;
+    }
+    .feature-list li .check {
+      flex-shrink: 0; width: 20px; height: 20px;
+      background: var(--green); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin-top: 1px;
+    }
+    .feature-list li .check svg { width: 11px; height: 11px; }
+
+    .hero-stats {
+      display: flex; gap: 32px;
+      padding-top: 40px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .stat-item { display: flex; flex-direction: column; gap: 4px; }
+    .stat-num {
+      font-family: 'Poppins', sans-serif;
+      font-size: 30px; font-weight: 700;
+      color: var(--green-light);
+    }
+    .stat-label { font-size: 12px; color: rgba(255,255,255,0.5); }
+
+    /* Right — form */
+    .hero-right {
+      background: var(--bg-grey);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 72px 56px;
+    }
+
+    .form-card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 48px 44px;
+      width: 100%; max-width: 440px;
+      box-shadow: 0 8px 48px rgba(21,37,66,0.1);
+      animation: slideUp 0.6s cubic-bezier(0.16,1,0.3,1) both;
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .form-card .doc-preview {
+      background: var(--navy);
+      border-radius: 12px;
+      padding: 20px 20px 16px;
+      margin-bottom: 32px;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .doc-icon {
+      flex-shrink: 0; width: 46px; height: 56px;
+      background: var(--green);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .doc-icon svg { width: 22px; height: 22px; color: white; }
+    .doc-meta { flex: 1; }
+    .doc-meta .doc-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 13px; font-weight: 700;
+      color: var(--white); line-height: 1.3; margin-bottom: 4px;
+    }
+    .doc-meta .doc-sub {
+      font-size: 11px; color: rgba(255,255,255,0.5);
+    }
+    .doc-tag {
+      flex-shrink: 0;
+      background: rgba(0,189,151,0.2);
+      color: var(--green-light);
+      font-size: 10px; font-weight: 700;
+      padding: 4px 8px; border-radius: 6px;
+      letter-spacing: 0.3px;
+    }
+
+    .form-card h2 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 22px; font-weight: 700;
+      color: var(--navy); margin-bottom: 8px; line-height: 1.25;
+    }
+    .form-card p {
+      font-size: 14px; color: var(--grey);
+      margin-bottom: 28px; line-height: 1.55;
+    }
+
+    .input-group { display: flex; flex-direction: column; gap: 14px; margin-bottom: 20px; }
+
+    .input-field {
+      position: relative;
+    }
+    .input-field label {
+      display: block; font-size: 12px; font-weight: 600;
+      color: var(--navy); margin-bottom: 6px; letter-spacing: 0.2px;
+    }
+    .input-field input {
+      width: 100%;
+      padding: 13px 16px;
+      border: 1.5px solid var(--grey-light);
+      border-radius: 10px;
+      font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--navy);
+      background: var(--white);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+    .input-field input:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(0,164,131,0.12);
+    }
+    .input-field input::placeholder { color: #adb5c0; }
+
+    .submit-btn {
+      width: 100%;
+      padding: 15px;
+      background: var(--green);
+      color: var(--white);
+      border: none; border-radius: 10px; cursor: pointer;
+      font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600;
+      letter-spacing: 0.1px;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      margin-bottom: 16px;
+    }
+    .submit-btn:hover { background: var(--green-dark); box-shadow: 0 4px 16px rgba(0,164,131,0.35); transform: translateY(-1px); }
+    .submit-btn:active { transform: translateY(0); }
+    .submit-btn svg { width: 16px; height: 16px; }
+
+    .form-note {
+      text-align: center; font-size: 11.5px; color: #9ba8b5;
+      display: flex; align-items: center; justify-content: center; gap: 5px;
+    }
+    .form-note svg { width: 12px; height: 12px; flex-shrink: 0; }
+
+    /* Success state */
+    .success-state {
+      display: none;
+      text-align: center; padding: 24px 0;
+      animation: fadeIn 0.5s ease both;
+    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .success-icon {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: var(--green-bg);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px;
+    }
+    .success-icon svg { width: 28px; height: 28px; color: var(--green); }
+    .success-state h3 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 20px; font-weight: 700; color: var(--navy); margin-bottom: 10px;
+    }
+    .success-state p { font-size: 14px; color: var(--grey); line-height: 1.6; }
+
+    /* ── CHECKLIST PREVIEW ────────────────────────────────── */
+    .preview-section {
+      background: var(--white);
+      padding: 100px 72px;
+    }
+    .section-label {
+      font-size: 12px; font-weight: 700; letter-spacing: 1.5px;
+      color: var(--green); text-transform: uppercase; margin-bottom: 16px;
+    }
+    .section-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(28px, 3vw, 40px); font-weight: 700;
+      color: var(--navy); margin-bottom: 16px; line-height: 1.15;
+    }
+    .section-sub { font-size: 16px; color: var(--grey); max-width: 560px; line-height: 1.6; margin-bottom: 60px; }
+
+    .categories-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+    }
+    .cat-card {
+      background: var(--bg-grey);
+      border-radius: 14px; padding: 24px 22px;
+      border: 1.5px solid transparent;
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+      cursor: default;
+    }
+    .cat-card:hover {
+      border-color: var(--green);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 28px rgba(21,37,66,0.09);
+    }
+    .cat-num {
+      font-family: 'Poppins', sans-serif; font-size: 12px; font-weight: 700;
+      color: var(--green); letter-spacing: 0.5px; margin-bottom: 10px;
+    }
+    .cat-name {
+      font-family: 'Poppins', sans-serif; font-size: 15px; font-weight: 600;
+      color: var(--navy); margin-bottom: 8px; line-height: 1.3;
+    }
+    .cat-count {
+      font-size: 12px; color: var(--grey);
+    }
+    .cat-bar {
+      margin-top: 14px; height: 3px;
+      background: var(--grey-light); border-radius: 10px; overflow: hidden;
+    }
+    .cat-bar-fill { height: 100%; background: var(--green); border-radius: 10px; }
+
+    /* ── SOCIAL PROOF ─────────────────────────────────────── */
+    .proof-section {
+      background: var(--navy);
+      padding: 80px 72px;
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 32px; align-items: center;
+    }
+    .proof-headline {
+      grid-column: 1;
+      font-family: 'Poppins', sans-serif;
+      font-size: 28px; font-weight: 700;
+      color: var(--white); line-height: 1.25;
+    }
+    .proof-headline span { color: var(--green-light); }
+    .proof-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 14px; padding: 28px 26px;
+    }
+    .proof-card p {
+      font-size: 14px; color: rgba(255,255,255,0.75);
+      line-height: 1.65; margin-bottom: 18px;
+      font-style: italic;
+    }
+    .proof-card .attr {
+      font-size: 13px; font-weight: 600; color: var(--white);
+    }
+    .proof-card .attr-role { font-size: 12px; color: rgba(255,255,255,0.45); margin-top: 2px; }
+
+    /* ── FOOTER ──────────────────────────────────────────── */
+    footer {
+      background: var(--bg-grey);
+      border-top: 1px solid var(--grey-light);
+      padding: 32px 72px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .footer-logo {
+      font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 18px;
+      color: var(--navy);
+    }
+    .footer-logo .dot { color: var(--green); }
+    footer p { font-size: 13px; color: var(--grey); }
+
+    /* ── RESPONSIVE ──────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-left { padding: 60px 32px; }
+      .hero-right { padding: 56px 24px; }
+      nav { padding: 0 24px; }
+      .categories-grid { grid-template-columns: repeat(2, 1fr); }
+      .proof-section { grid-template-columns: 1fr; padding: 60px 32px; }
+      .proof-headline { grid-column: 1; }
+      .preview-section, footer { padding: 72px 32px; }
+    }
+    @media (max-width: 560px) {
+      .categories-grid { grid-template-columns: 1fr; }
+      .hero-stats { flex-wrap: wrap; gap: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">ta<span class="dot">·</span>lentpool</a>
+  <a class="nav-cta" href="#get-checklist">Get Free Checklist</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+
+  <!-- LEFT: copy -->
+  <div class="hero-left">
+    <div class="badge">Free Resource  •  2025 Edition</div>
+
+    <h1>The Ultimate<br /><span>ATS Feature</span><br />Checklist</h1>
+
+    <p>64 must-have capabilities across 8 categories — each with a clear explanation of why it matters for your recruiting team.</p>
+
+    <ul class="feature-list">
+      <li>
+        <span class="check"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,6 4.5,9 10.5,3"/></svg></span>
+        Core workflow & AI-powered hiring pipelines
+      </li>
+      <li>
+        <span class="check"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,6 4.5,9 10.5,3"/></svg></span>
+        Automation, scheduling & trigger-based workflows
+      </li>
+      <li>
+        <span class="check"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,6 4.5,9 10.5,3"/></svg></span>
+        Integrations — Naukri, LinkedIn, HRMS, BGV & more
+      </li>
+      <li>
+        <span class="check"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,6 4.5,9 10.5,3"/></svg></span>
+        Security, GDPR, DPDP Act compliance
+      </li>
+      <li>
+        <span class="check"><svg viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5,6 4.5,9 10.5,3"/></svg></span>
+        Reporting, analytics & compliance dashboards
+      </li>
+    </ul>
+
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-num">64</span>
+        <span class="stat-label">Features covered</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">8</span>
+        <span class="stat-label">Categories</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">82%</span>
+        <span class="stat-label">of ATS users report gaps</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: form -->
+  <div class="hero-right" id="get-checklist">
+    <div class="form-card">
+
+      <div class="doc-preview">
+        <div class="doc-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14,2 14,8 20,8"/>
+            <line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/>
+          </svg>
+        </div>
+        <div class="doc-meta">
+          <div class="doc-title">Ultimate ATS Feature Checklist</div>
+          <div class="doc-sub">PDF · 12 slides · 64 features</div>
+        </div>
+        <div class="doc-tag">FREE</div>
+      </div>
+
+      <!-- Form state -->
+      <div id="form-state">
+        <h2>Get your free copy</h2>
+        <p>Enter your work email below and we'll send the checklist straight to your inbox.</p>
+
+        <div class="input-group">
+          <div class="input-field">
+            <label for="fullname">Full Name</label>
+            <input type="text" id="fullname" placeholder="e.g. Priya Sharma" autocomplete="name" />
+          </div>
+          <div class="input-field">
+            <label for="email">Work Email <span style="color:var(--green)">*</span></label>
+            <input type="email" id="email" placeholder="you@company.com" autocomplete="email" required />
+          </div>
+          <div class="input-field">
+            <label for="company">Company</label>
+            <input type="text" id="company" placeholder="Your company name" />
+          </div>
+        </div>
+
+        <button class="submit-btn" onclick="handleSubmit()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Download Free Checklist
+        </button>
+
+        <p class="form-note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          No spam. Unsubscribe anytime.
+        </p>
+      </div>
+
+      <!-- Success state -->
+      <div class="success-state" id="success-state">
+        <div class="success-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20,6 9,17 4,12"/>
+          </svg>
+        </div>
+        <h3>You're all set! 🎉</h3>
+        <p>We've recorded your request. The ATS Feature Checklist will be on its way to your inbox shortly.<br /><br />
+        Want to see how Talentpool ticks every box on the checklist?</p>
+        <br />
+        <button class="submit-btn" style="max-width:260px; margin: 0 auto;" onclick="window.open('https://www.thetalentpool.ai','_blank')">
+          Book a Free Demo →
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+
+<!-- CHECKLIST PREVIEW -->
+<section class="preview-section">
+  <p class="section-label">What's inside</p>
+  <h2 class="section-title">8 categories. 64 features.<br />Every one explained.</h2>
+  <p class="section-sub">Use the checklist to audit your current ATS, compare vendors, or build your evaluation scorecard.</p>
+
+  <div class="categories-grid">
+    <!-- each cat-card -->
+    <div class="cat-card">
+      <div class="cat-num">01</div>
+      <div class="cat-name">Core ATS & Workflow Management</div>
+      <div class="cat-count">8 features</div>
+      <div class="cat-bar"><div class="cat-bar-fill" style="width:100%"></div></div>
+    </div>
+    <div class="cat-card">
+      <div class="cat-num">02</div>
+      <div class="cat-name">AI-Powered Sourcing & Screening</div>
+      <div class="cat-count">8 features</div>
+      <div class="cat-bar"><div class="cat-bar-fill" style="width:100%"></div></div>
+    </div>
+    <div class="cat-card">
+      <div class="cat-num">03</div>
+      <div class="cat-name">Automation & Workflow Efficiency</div>
+      <div class="cat-count">8 features</div>
+      <div class="cat-bar"><div class="cat-bar-fill" style="width:100%"></div></div>
+    </div>
+    <div class="cat-card">
+      <div class="cat-num">04</div>
+      <div class="cat-name">Candidate Experience & Engagement</div>
+      <div class="cat-count">8 features</div>
+      <div class="cat-bar"><div class="cat-bar-fill" style="width:100%"></div></div>
+    </div>
+    <div class="cat-card">
+      <div class="cat-num">05</div>
+      <div class="cat-name">Reporting, Analytics & Compliance</div>
+      <div class="cat-count">8 features</div>
+      <div class="cat-bar"><div class="cat-bar-fill" style="width:100%"></div></div>
+    </div>
+    <div class="cat-card">
+      <div class="cat-num">06</div>
+      <div class="cat-name">Integrations & Ecosystem Connectivity</div>
+      <div class="cat-count">8 features</div>
+      <div class="cat-bar"><div class="cat-bar-fill" style="width:100%"></div></div>
+    </div>
+    <div class="cat-card">
+      <div class="cat-num">07</div>
+      <div class="cat-name">Security, Compliance & Data Governance</div>
+      <div class="cat-count">8 features</div>
+      <div class="cat-bar"><div class="cat-bar-fill" style="width:100%"></div></div>
+    </div>
+    <div class="cat-card">
+      <div class="cat-num">08</div>
+      <div class="cat-name">Mobile UX, Support & Onboarding</div>
+      <div class="cat-count">8 features</div>
+      <div class="cat-bar"><div class="cat-bar-fill" style="width:100%"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL PROOF -->
+<section class="proof-section">
+  <div class="proof-headline">
+    Trusted by leading<br /><span>Indian IT teams</span>
+  </div>
+  <div class="proof-card">
+    <p>"Talentpool's AI recommendations gives us a clear score on CVs, which has helped us save both time and cost. We no longer rely on external agencies."</p>
+    <div class="attr">Head of Talent Acquisition</div>
+    <div class="attr-role">Mid-size IT Services Company, Pune</div>
+  </div>
+  <div class="proof-card">
+    <p>"We were looking for a recruitment software to set up a defined workflow. Talentpool was the right solution for its features, intuitive interface, and support."</p>
+    <div class="attr">HR Director</div>
+    <div class="attr-role">Enterprise Tech Firm, Bengaluru</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">ta<span class="dot">·</span>lentpool</div>
+  <p>© 2025 The Talent Pool AI Pvt. Ltd. All rights reserved.</p>
+  <p style="font-size:12px;color:#adb5c0;">thetalentpool.ai</p>
+</footer>
+
+<script>
+  // ── Lead capture: stores submissions in window.storage (persistent) ──
+  async function handleSubmit() {
+    const name    = document.getElementById('fullname').value.trim();
+    const email   = document.getElementById('email').value.trim();
+    const company = document.getElementById('company').value.trim();
+
+    if (!email || !email.includes('@')) {
+      document.getElementById('email').style.borderColor = '#E05C5C';
+      document.getElementById('email').focus();
+      return;
+    }
+    document.getElementById('email').style.borderColor = '';
+
+    const btn = document.querySelector('.submit-btn');
+    btn.textContent = 'Submitting…';
+    btn.disabled = true;
+
+    const timestamp = new Date().toISOString();
+    const entry = { name, email, company, timestamp };
+
+    // Load existing leads
+    let leads = [];
+    try {
+      const existing = await window.storage.get('ats_checklist_leads');
+      if (existing) leads = JSON.parse(existing.value);
+    } catch (_) {}
+
+    leads.push(entry);
+
+    try {
+      await window.storage.set('ats_checklist_leads', JSON.stringify(leads));
+    } catch (e) {
+      console.error('Storage error:', e);
+    }
+
+    // Show success
+    document.getElementById('form-state').style.display  = 'none';
+    document.getElementById('success-state').style.display = 'block';
+  }
+
+  // Reset email border on input
+  document.getElementById('email').addEventListener('input', function() {
+    this.style.borderColor = '';
+  });
+
+  // Smooth scroll for nav CTA
+  document.querySelector('.nav-cta').addEventListener('click', function(e) {
+    e.preventDefault();
+    document.getElementById('get-checklist').scrollIntoView({ behavior: 'smooth' });
+  });
+</script>
+
+</body>
+</html>
