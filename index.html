@@ -594,56 +594,58 @@
 </footer>
 
 <script>
-  // ── Lead capture: stores submissions in window.storage (persistent) ──
-  async function handleSubmit() {
-    const name    = document.getElementById('fullname').value.trim();
-    const email   = document.getElementById('email').value.trim();
-    const company = document.getElementById('company').value.trim();
+async function handleSubmit() {
+  const name    = document.getElementById('fullname').value.trim();
+  const email   = document.getElementById('email').value.trim();
+  const company = document.getElementById('company').value.trim();
 
-    if (!email || !email.includes('@')) {
-      document.getElementById('email').style.borderColor = '#E05C5C';
-      document.getElementById('email').focus();
-      return;
-    }
-    document.getElementById('email').style.borderColor = '';
-
-    const btn = document.querySelector('.submit-btn');
-    btn.textContent = 'Submitting…';
-    btn.disabled = true;
-
-    const timestamp = new Date().toISOString();
-    const entry = { name, email, company, timestamp };
-
-    // Load existing leads
-    let leads = [];
-    try {
-      const existing = await window.storage.get('ats_checklist_leads');
-      if (existing) leads = JSON.parse(existing.value);
-    } catch (_) {}
-
-    leads.push(entry);
-
-    try {
-      await window.storage.set('ats_checklist_leads', JSON.stringify(leads));
-    } catch (e) {
-      console.error('Storage error:', e);
-    }
-
-    // Show success
-    document.getElementById('form-state').style.display  = 'none';
-    document.getElementById('success-state').style.display = 'block';
+  // Email validation
+  if (!email || !email.includes('@')) {
+    document.getElementById('email').style.borderColor = '#E05C5C';
+    document.getElementById('email').focus();
+    return;
   }
 
-  // Reset email border on input
-  document.getElementById('email').addEventListener('input', function() {
-    this.style.borderColor = '';
-  });
+  document.getElementById('email').style.borderColor = '';
 
-  // Smooth scroll for nav CTA
-  document.querySelector('.nav-cta').addEventListener('click', function(e) {
-    e.preventDefault();
-    document.getElementById('get-checklist').scrollIntoView({ behavior: 'smooth' });
-  });
+  const btn = document.querySelector('.submit-btn');
+  btn.textContent = 'Submitting…';
+  btn.disabled = true;
+
+  const data = {
+    name: name,
+    email: email,
+    company: company
+  };
+
+  try {
+    await fetch("YOUR_GOOGLE_SCRIPT_URL_HERE", {
+      method: "POST",
+      body: JSON.stringify(data)
+    });
+
+    // Show success UI
+    document.getElementById('form-state').style.display = 'none';
+    document.getElementById('success-state').style.display = 'block';
+
+  } catch (error) {
+    console.error(error);
+    alert("Submission failed. Please try again.");
+    btn.textContent = 'Download Free Checklist';
+    btn.disabled = false;
+  }
+}
+
+// Reset email border on input
+document.getElementById('email').addEventListener('input', function() {
+  this.style.borderColor = '';
+});
+
+// Smooth scroll for nav CTA
+document.querySelector('.nav-cta').addEventListener('click', function(e) {
+  e.preventDefault();
+  document.getElementById('get-checklist').scrollIntoView({ behavior: 'smooth' });
+});
 </script>
 
 </body>
