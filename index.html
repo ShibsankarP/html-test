@@ -618,22 +618,19 @@ formData.append("email", email);
 formData.append("company", company);
 
   try {
-    await fetch("https://script.google.com/macros/s/AKfycbyvvo_cF8LIhiSppY9rO9TNb3jAa5zWmenqVaUtRWqWsbP887zpvQmXl76FgbF96mj1/exec", {
-  method: "POST",
-  body: formData,
-      mode: "no-cors"
-});
+  await fetch("https://script.google.com/macros/s/AKfycbyvvo_cF8LIhiSppY9rO9TNb3jAa5zWmenqVaUtRWqWsbP887zpvQmXl76FgbF96mj1/exec", {
+    method: "POST",
+    body: formData,
+    mode: "no-cors"
+  });
 
-    // Show success UI
-    document.getElementById('form-state').style.display = 'none';
-    document.getElementById('success-state').style.display = 'block';
+  // Show success immediately
+  document.getElementById('form-state').style.display = 'none';
+  document.getElementById('success-state').style.display = 'block';
 
-  } catch (error) {
-    console.error(error);
-    alert("Submission failed. Please try again.");
-    btn.textContent = 'Download Free Checklist';
-    btn.disabled = false;
-  }
+} catch (error) {
+  alert("Submission failed");
+}
 }
 
 // Reset email border on input
