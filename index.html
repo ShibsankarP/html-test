@@ -620,7 +620,8 @@ formData.append("company", company);
   try {
     await fetch("https://script.google.com/macros/s/AKfycbyvvo_cF8LIhiSppY9rO9TNb3jAa5zWmenqVaUtRWqWsbP887zpvQmXl76FgbF96mj1/exec", {
   method: "POST",
-  body: formData
+  body: formData,
+      mode: "no-cors"
 });
 
     // Show success UI
